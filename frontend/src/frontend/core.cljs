@@ -107,25 +107,24 @@
               :auto-complete "off"}]
      button-title]))
 
-(defn exclusive-button-group [state-atom & buttons]
-  [:div.btn-group.btn-group-toggle {:data-toggle "buttons"}
-    (for [[title state] buttons]
-      ^{:key state} [exclusive-button-group-button title state state-atom])])
+(defn exclusive-button-group [group-label state-atom & buttons]
+  [:div.row.row-fluid.control-buttons
+    [:div.col-2.col-xs-6.text-right
+      [:span.control-label [:strong group-label]]]
+    [:div.btn-group.btn-group-toggle.col-offset-7 {:data-toggle "buttons"}
+      (for [[title state] buttons]
+        ^{:key state} [exclusive-button-group-button title state state-atom])]])
 
 (defn sorting-buttons [sorting-atom]
-  [:div.row.control-buttons
-    [:label.btn.col-1 [:strong "Sort by:"]]
-    [exclusive-button-group sorting-atom
+    [exclusive-button-group "Sort by:" sorting-atom
      ["Title" :album-name]
-     ["Artist" :artist-name]]])
+     ["Artist" :artist-name]])
 
 (defn grouping-buttons [grouping-atom]
-  [:div.row.control-buttons
-   [:label.btn.col-1 [:strong "Group by:"]]
-   [exclusive-button-group grouping-atom
+   [exclusive-button-group "Group by:" grouping-atom
     ["None" :none]
     ["Alphabet" :alphabet]
-    ["Artist" :artist]]])
+    ["Artist" :artist]])
 
 (defn app-entry []
   [:div.container-fluid
