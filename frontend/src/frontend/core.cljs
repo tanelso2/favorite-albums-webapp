@@ -62,7 +62,7 @@
 
 (defonce sorting (r/atom :artist-name))
 
-(defonce grouping (r/atom nil))
+(defonce grouping (r/atom :none))
 
 ;; -------------------------
 ;; Views
@@ -123,7 +123,7 @@
   [:div.row.control-buttons
    [:label.btn.col-1 [:strong "Group by:"]]
    [exclusive-button-group grouping-atom
-    ["None" nil]
+    ["None" :none]
     ["Alphabet" :alphabet]
     ["Artist" :artist]]])
 
@@ -132,7 +132,7 @@
    [:h1 "Thomas's Favorite Albums"]
    [sorting-buttons sorting]
    [grouping-buttons grouping]
-   (if (nil? @grouping)
+   (if (= :none @grouping)
      [album-list (sort-by (sort-key-fn @sorting) @albums)]
      [album-groups (get-album-groups @grouping @sorting @albums)])
    [:p "View the code on "
