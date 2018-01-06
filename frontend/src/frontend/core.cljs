@@ -73,10 +73,12 @@
      [:img.card-img-top.img-fluid {:src image-url}]
      [:div.card-block
        [:h5.card-title.text-truncate
-        [:a {:href album-url}
+        [:a {:href album-url
+             :title album-name}
          album-name]]
        [:h6.text-truncate
-        [:a {:href artist-url}
+        [:a {:href artist-url
+             :title artist-name}
          artist-name]]]]))
 
 (defn album-list [albums-data]
