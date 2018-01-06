@@ -25,17 +25,33 @@ def get_auth_token():
     r = requests.post(spotify_auth_url, headers=headers, data=body)
     return r.json()['access_token']
 
+def need_exact_match(album, artist):
+    overrides = [
+                 # Needed to get past the Love Pts 1 & 2 double album.
+                 # Part 2 is merely meh
+                 ['Love, Pt. 1', 'Angels & Airwaves']
+                ]
+    for o_album, o_artist in overrides:
+        if album == o_album and artist == o_artist:
+            return True
+    return False
+
 def get_album_information(album, artist, auth_token=None):
     if auth_token is None:
         auth_token = get_auth_token()
     search_url = "https://api.spotify.com/v1/search"
     query = f"album:{album} artist:{artist}"
     encoded_query_str = urllib.parse.urlencode({"q": query,
-                                                "type": "album"})
+                                                "type": "album",
+                                                "limit": 50})
     headers = {"Authorization": f"Bearer {auth_token}"}
     r = requests.get(f"{search_url}?{encoded_query_str}", headers=headers)
-    # TODO: Figure out a workaround so that you get
-    # Whitney by Whitney instead of Whitney by Whitney Houston
+    if need_exact_match(album, artist):
+        for info in r.json()['albums']['items']:
+            i_artist = info["artists"][0]["name"]
+            i_album = info["name"]
+            if i_artist == artist and i_album == album:
+                return info
     return r.json()['albums']['items'][0]
 
 def parse_spotify_album_info(album_info):
