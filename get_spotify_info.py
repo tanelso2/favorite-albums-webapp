@@ -34,6 +34,8 @@ def get_album_information(album, artist, auth_token=None):
                                                 "type": "album"})
     headers = {"Authorization": f"Bearer {auth_token}"}
     r = requests.get(f"{search_url}?{encoded_query_str}", headers=headers)
+    # TODO: Figure out a workaround so that you get
+    # Whitney by Whitney instead of Whitney by Whitney Houston
     return r.json()['albums']['items'][0]
 
 def parse_spotify_album_info(album_info):
