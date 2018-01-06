@@ -9,6 +9,10 @@
     margin-bottom: 5%
 }
 
-.sorting-buttons {
+.control-buttons {
     margin-bottom: 5px;
+}
+
+.group-title {
+    padding-left: 15px;
 }
