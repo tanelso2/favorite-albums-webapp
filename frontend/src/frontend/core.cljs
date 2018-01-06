@@ -93,7 +93,10 @@
   [:div.container-fluid
    [:h1 "Thomas's Favorite Albums"]
    [sorting-buttons sorting]
-   [album-list (sort-by (sort-key-fn @sorting) @albums)]])
+   [album-list (sort-by (sort-key-fn @sorting) @albums)]
+   [:p "View the code on "
+      [:a {:href "https://github.com/tanelso2/favorite-albums-webapp"}
+       "GitHub"]]])
 
 ;; -------------------------
 ;; Initialize app
