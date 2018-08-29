@@ -7,6 +7,7 @@ before_deploy:
   - cd public
   - tar -zcf ../deployment.tar.gz .
   - cd ..
+  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
 deploy:
   provider: releases
   api_key:
