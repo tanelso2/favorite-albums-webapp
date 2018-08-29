@@ -1,5 +1,19 @@
-A little webapp to show off my favorite albums.
 
-Pulls data from spotify
+### Development mode
 
-View it [here](https://thomasnelson.me/favorites/albums/)
+To start the Figwheel compiler, navigate to the project folder and run the following command in the terminal:
+
+```
+lein figwheel
+```
+
+Figwheel will automatically push cljs changes to the browser.
+Once Figwheel starts up, you should be able to open the `public/index.html` page in the browser.
+
+
+### Building for production
+
+```
+lein clean
+lein package
+```
