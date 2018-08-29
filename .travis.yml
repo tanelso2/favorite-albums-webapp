@@ -4,7 +4,7 @@ lein: lein
 script: lein package
 before_deploy:
   - gzip -rk public
-  - tar -zcf deployment.tar.gz public
+  - cd public && tar -zcf ../deployment.tar.gz .
 deploy:
   provider: releases
   api_key:
