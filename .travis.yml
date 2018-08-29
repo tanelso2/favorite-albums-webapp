@@ -1,0 +1,4 @@
+language: clojure
+sudo: required
+lein: lein
+script: cd frontend; lein package
