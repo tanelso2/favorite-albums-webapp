@@ -52,6 +52,8 @@ def get_album_information(album, artist, auth_token=None):
             i_album = info["name"]
             if i_artist == artist and i_album == album:
                 return info
+    # For debugging errors:
+    # print(f'{album} by {artist}')
     return r.json()['albums']['items'][0]
 
 def parse_spotify_album_info(album_info):
