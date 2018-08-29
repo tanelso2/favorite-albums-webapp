@@ -1,4 +1,4 @@
 language: clojure
-sudo: required
+sudo: false
 lein: lein
 script: lein package
