@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/tanelso2/favorite-albums-webapp.svg?branch=master)](https://travis-ci.com/tanelso2/favorite-albums-webapp)
 
 ### Development mode
 
