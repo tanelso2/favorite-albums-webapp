@@ -5,7 +5,7 @@ script: lein package
 before_deploy:
   - gzip -rk public
   - cd public
-  - tar -zcf ../deployment.tar.gz .
+  - tar --exclude "js/release/*" -zcf ../deployment.tar.gz .
   - cd ..
   - git config --local user.name "Travis CI"
   - git config --local user.email "builds@travis-ci.com"
