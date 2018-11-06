@@ -6,6 +6,15 @@
       [reagent.core :as r]))
 
 ;; -------------------------
+;; State
+
+(defonce albums (r/atom nil))
+
+(defonce sorting (r/atom :artist-name))
+
+(defonce grouping (r/atom :none))
+
+;; -------------------------
 ;; Helper Functions
 
 (defn remove-annotations-from-album-title
@@ -55,14 +64,18 @@
       (sort-by (sort-key-fn first))
       (mapv (partial sort-group sort-fn)))))
 
-;; -------------------------
-;; State
+(defn go-to
+  [location]
+  (set! js/window.location.href location))
 
-(defonce albums (r/atom nil))
+(defn get-random-album
+  []
+  (rand-nth @albums))
 
-(defonce sorting (r/atom :artist-name))
-
-(defonce grouping (r/atom :none))
+(defn go-to-random-album
+  []
+  (go-to (:album-url (get-random-album))))
+ 
 
 ;; -------------------------
 ;; Views
@@ -126,11 +139,19 @@
     ["Alphabet" :alphabet]
     ["Artist" :artist]])
 
+(defn random-album-button []
+  [:div.row.row-fluid.control-buttons
+    [:div.btn-group.col-2.col-xs-6
+      [:label.btn.btn-secondary
+        {:on-click #(go-to-random-album)}
+        "Random Album"]]])
+
 (defn app-entry []
   [:div.container-fluid
    [:h1 "Thomas's Favorite Albums"]
    [sorting-buttons sorting]
    [grouping-buttons grouping]
+   [random-album-button]
    (if (= :none @grouping)
      [album-list (sort-by (sort-key-fn @sorting) @albums)]
      [album-groups (get-album-groups @grouping @sorting @albums)])
