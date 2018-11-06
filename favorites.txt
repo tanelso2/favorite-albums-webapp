@@ -27,7 +27,7 @@ Afterman Ascension by Coheed and Cambria
 Afterman Descension by Coheed and Cambria
 Good Apollo by Coheed and Cambria
 In Keeping Secrets of Silent Earth by Coheed and Cambria
-X&Y by Coldplay
+X & Y by Coldplay
 Disintegration by The Cure
 Discovery by Daft Punk
 Diamond Dogs by David Bowie
@@ -57,8 +57,9 @@ Making Mirrors by Gotye
 Dookie by Green Day
 The Head and The Heart by The Head and The Heart
 Turn on the Bright Lights by Interpol
-Off With Their Heads by The Kaiser Chiefs
-Yours Truly, Angry Mob by The Kaiser Chiefs
+Off With Their Heads by Kaiser Chiefs
+Yours Truly, Angry Mob by Kaiser Chiefs
+My Beautiful Dark Twisted Fantasy by Kanye West
 IV by Led Zeppelin
 Gorilla Manor by Local Natives
 Cleopatra by The Lumineers
@@ -99,7 +100,6 @@ In Rainbows by Radiohead
 The Bends by Radiohead
 Classics by Ratatat
 Californication by Red Hot Chili Peppers
-I'm With You by Red Hot Chili Peppers
 Stadium Arcadium by Red Hot Chili Peppers
 Appeal to Reason by Rise Against
 The Black Market by Rise Against
