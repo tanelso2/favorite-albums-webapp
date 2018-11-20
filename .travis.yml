@@ -3,6 +3,16 @@ sudo: required
 services:
 - docker
 lein: lein
+before_install:
+- if [ ! -d $HOME/google-cloud-sdk/bin ]; then
+    rm -rf $HOME/google-cloud-sdk;
+    curl https://sdk.cloud.google.com | bash > /dev/null;
+  fi
+- source $HOME/google-cloud-sdk/path.bash.inc
+- gcloud components update kubectl
+- gcloud version
+- openssl aes-256-cbc -K $encrypted_e5f3d8a0584a_key -iv $encrypted_e5f3d8a0584a_iv
+  -in service-account.json.enc -out service-account.json -d
 script:
 - lein package
 - docker build -t favorite-albums:latest .
@@ -22,16 +32,6 @@ env:
   global:
   # Do not prompt for user input when using any SDK methods.
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
-before_install:
-- if [ ! -d $HOME/google-cloud-sdk/bin ]; then
-    rm -rf $HOME/google-cloud-sdk;
-    curl https://sdk.cloud.google.com | bash > /dev/null;
-  fi
-- source $HOME/google-cloud-sdk/path.bash.inc
-- gcloud components update kubectl
-- gcloud version
-- openssl aes-256-cbc -K $encrypted_e5f3d8a0584a_key -iv $encrypted_e5f3d8a0584a_iv
-  -in service-account.json.enc -out service-account.json -d
 deploy:
   provider: releases
   api_key:
@@ -41,4 +41,3 @@ deploy:
   on:
     repo: tanelso2/favorite-albums-webapp
     branch: master
-before_install:
