@@ -1,7 +1,11 @@
 language: clojure
-sudo: false
+sudo: required
+services:
+  - docker
 lein: lein
-script: lein package
+script:
+  - lein package
+  - docker build -t favorite-albums:latest .
 before_deploy:
   - gzip -rk public
   - cd public
