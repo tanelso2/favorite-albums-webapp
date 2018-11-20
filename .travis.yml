@@ -16,6 +16,7 @@ before_install:
 script:
 - lein package
 - docker build -t favorite-albums:latest .
+- scripts/deploy.sh
 before_deploy:
 - gzip -rk public
 - cd public
