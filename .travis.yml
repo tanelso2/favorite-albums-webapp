@@ -15,7 +15,7 @@ before_install:
   -in service-account.json.enc -out service-account.json -d
 script:
 - lein package
-- docker build -t favorite-albums:latest .
+- docker build -t $REPO_NAME:latest .
 - scripts/deploy.sh
 before_deploy:
 - gzip -rk public
@@ -33,6 +33,8 @@ env:
   global:
   # Do not prompt for user input when using any SDK methods.
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+  - REPO_NAME=favorite-albums
+  - GCR_REPO=gcr.io/kubernetes-221218
 deploy:
   - provider: releases
     api_key:
