@@ -1,19 +1,39 @@
 language: clojure
 sudo: required
 services:
-  - docker
+- docker
 lein: lein
 script:
-  - lein package
-  - docker build -t favorite-albums:latest .
+- lein package
+- docker build -t favorite-albums:latest .
 before_deploy:
-  - gzip -rk public
-  - cd public
-  - tar --exclude "js/release/*" -zcf ../deployment.tar.gz .
-  - cd ..
-  - git config --local user.name "Travis CI"
-  - git config --local user.email "builds@travis-ci.com"
-  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+- gzip -rk public
+- cd public
+- tar --exclude "js/release/*" -zcf ../deployment.tar.gz .
+- cd ..
+- git config --local user.name "Travis CI"
+- git config --local user.email "builds@travis-ci.com"
+- git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+cache:
+  directories:
+  # We cache the SDK so we don't have to download it again on subsequent builds.
+  - $HOME/google-cloud-sdk
+env:
+  global:
+  # Do not prompt for user input when using any SDK methods.
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+before_install:
+- if [ ! -d $HOME/google-cloud-sdk/bin ]; then
+    rm -rf $HOME/google-cloud-sdk;
+    curl https://sdk.cloud.google.com | bash > /dev/null;
+  fi
+# This line is critical. We setup the SDK to take precedence in our
+# environment over the old SDK that is already on the machine.
+- source $HOME/google-cloud-sdk/path.bash.inc
+- gcloud components update kubectl
+- gcloud version
+- openssl aes-256-cbc -K $encrypted_e5f3d8a0584a_key -iv $encrypted_e5f3d8a0584a_iv
+  -in service-account.json.enc -out service-account.json -d
 deploy:
   provider: releases
   api_key:
@@ -23,3 +43,4 @@ deploy:
   on:
     repo: tanelso2/favorite-albums-webapp
     branch: master
+before_install:
