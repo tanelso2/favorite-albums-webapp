@@ -17,7 +17,10 @@ script:
 - lein package
 - docker build -t $REPO_NAME:latest .
 before_deploy:
-- scripts/install_helm.sh
+- wget https://raw.githubusercontent.com/tanelso2/deployment_scripts/master/deploy.sh
+- wget https://raw.githubusercontent.com/tanelso2/deployment_scripts/master/install_helm.sh
+- chmod +x install_helm.sh deploy.sh
+- ./install_helm.sh
 cache:
   directories:
   # We cache the SDK so we don't have to download it again on subsequent builds.
@@ -33,7 +36,7 @@ env:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: scripts/deploy.sh
+  script: ./deploy.sh
   on:
     repo: tanelso2/favorite-albums-webapp
     branch: master
