@@ -25,7 +25,6 @@ before_deploy:
 - git config --local user.name "Travis CI"
 - git config --local user.email "builds@travis-ci.com"
 - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
-- curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash
 cache:
   directories:
   # We cache the SDK so we don't have to download it again on subsequent builds.
@@ -39,17 +38,11 @@ env:
   - HELM_RELEASE=crazy-ant
   - HELM_CHART_DIR=helm/favorite-albums
 deploy:
-  - provider: releases
-    api_key:
-      secure: lM8JMmPfL3IQnLVXg7HIsetiUO3UqW7B5UeRywSBO2kRKyaSeJ45nDyJTUVvcElJ5hxFY/1c7CN3R+fHbVxyyHpba72h71RChrDbqsYXwV32N1HWmLqMJQZIFigZZGIXKdMWKIL71fzIdFpsm3jUhFcSpl6qFvNTtyIuB80GHfMRlCkpFEIErVJuHqyCr1mMzyZU3Bg0kokpUZb0kaT0tngkhCPME2avg91YM5KjuVkP3dhH9q+vUorDp/7zp6nlAgZKE/nmeZRl8EopVtu0sHzpnyUL40ZfCQubeLII4pPpQC5+bhaMpgGETwI7V0BIcfDPnEDlNBl5MovIQT7K037prKjJ1cNqwP6aCKPTrSFYRX1HkUenKvse7QR5lWxXvsb7upxtTXCfHNFNv2R+clOsJDWtbacwM00N3essqVQ3qSztcfacQNw7Wls4nW9T7AK1Q8jgpYdcTY34bhW7+eAr5F6ep97Pxm6LBNNW7blMDxxr0yominptqQdVf1383BLvkhoZNq8G6XRzDrP1gE6mRMlAP+HLfhJwnpNR+5rOl9goPthfK3hwp92Iu5H0T4Yqs0DZqvtALd5lmSCKMtVnApv3eKTXofhE1AVPv/FPH8jXmRnxgebia+OMWWhKNa2r+NPM2Bohe3fkWL+j/yc0RR+Jurj2OowHRoHAbaY=
-    file: deployment.tar.gz
-    skip_cleanup: true
-    on:
-      repo: tanelso2/favorite-albums-webapp
-      branch: master
   - provider: script
     skip_cleanup: true
-    script: scripts/deploy.sh
+    script:
+      - scripts/install_helm.sh
+      - scripts/deploy.sh
     on:
       repo: tanelso2/favorite-albums-webapp
       branch: travis_docker
