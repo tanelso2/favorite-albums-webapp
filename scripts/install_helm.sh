@@ -3,6 +3,8 @@
 set -e
 set -x
 
-wget https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
-tar -zxf helm-v2.11.0-linux-amd64.tar.gz
+TAR_FILE=helm-v2.10.0-linux-amd64.tar.gz
+
+wget https://storage.googleapis.com/kubernetes-helm/$TAR_FILE
+tar -zxf $TAR_FILE
 sudo cp linux-amd64/helm /usr/local/bin/helm
