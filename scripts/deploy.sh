@@ -21,6 +21,4 @@ gcloud container clusters get-credentials standard-cluster-2 --zone us-central1-
 
 kubectl version
 
-curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash
-
 helm upgrade $HELM_RELEASE $HELM_CHART_DIR --set image.tag=$IMAGE_TAG
