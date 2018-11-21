@@ -16,15 +16,8 @@ before_install:
 script:
 - lein package
 - docker build -t $REPO_NAME:latest .
-- scripts/deploy.sh
 before_deploy:
-- gzip -rk public
-- cd public
-- tar --exclude "js/release/*" -zcf ../deployment.tar.gz .
-- cd ..
-- git config --local user.name "Travis CI"
-- git config --local user.email "builds@travis-ci.com"
-- git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+- scripts/install_helm.sh
 cache:
   directories:
   # We cache the SDK so we don't have to download it again on subsequent builds.
