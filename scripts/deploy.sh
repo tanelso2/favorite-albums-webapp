@@ -16,4 +16,6 @@ export FULL_DOCKER_TAG="$GCR_REPO/$REPO_NAME:$IMAGE_TAG"
 docker tag $REPO_NAME:latest $FULL_DOCKER_TAG
 docker push $FULL_DOCKER_TAG
 
+
+gcloud container clusters get-credentials standard-cluster-2 --zone us-central1-a
 kubectl version
