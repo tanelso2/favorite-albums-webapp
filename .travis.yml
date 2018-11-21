@@ -25,6 +25,7 @@ before_deploy:
 - git config --local user.name "Travis CI"
 - git config --local user.email "builds@travis-ci.com"
 - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+- curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash
 cache:
   directories:
   # We cache the SDK so we don't have to download it again on subsequent builds.
@@ -35,6 +36,8 @@ env:
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
   - REPO_NAME=favorite-albums
   - GCR_REPO=gcr.io/kubernetes-221218
+  - HELM_RELEASE=crazy-ant
+  - HELM_CHART_DIR=helm/favorite-albums
 deploy:
   - provider: releases
     api_key:

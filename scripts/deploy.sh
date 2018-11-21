@@ -20,3 +20,5 @@ docker push $FULL_DOCKER_TAG
 gcloud container clusters get-credentials standard-cluster-2 --zone us-central1-a --project kubernetes-221218
 
 kubectl version
+
+helm upgrade $HELM_RELEASE $HELM_CHART_DIR --set image.tag=$IMAGE_TAG
