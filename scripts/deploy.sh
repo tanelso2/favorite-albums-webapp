@@ -17,5 +17,6 @@ docker tag $REPO_NAME:latest $FULL_DOCKER_TAG
 docker push $FULL_DOCKER_TAG
 
 
-gcloud container clusters get-credentials standard-cluster-2 --zone us-central1-a
+gcloud container clusters get-credentials standard-cluster-2 --zone us-central1-a --project kubernetes-221218
+
 kubectl version
